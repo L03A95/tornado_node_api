@@ -11,5 +11,20 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        description: {
+            type: DataTypes.STRING,
+            defaultValue: "No description..."
+        },
+        image: {
+            type: DataTypes.STRING
+        },
+        price: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        active: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        }
     },{timestamps: false})
 }
