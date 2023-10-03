@@ -16,9 +16,25 @@ const getMenuById = async (id) => {
     }
 }
 
-const postMenu = async (menu) => {
+const postMenus = async (menu) => {
+    try {      
+        return await Menu.create(menu)
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const editMenus = async (newMenu, id) => {
     try {
-        Menu.create(menu)
+        return await Menu.update(newMenu, {where:{id: id}})
+    } catch (error) {
+        throw new Error(error)
+    }
+}
+
+const deleteMenu = async (id) => {
+    try {
+        return await Menu.destroy({where: {id: id}})
     } catch (error) {
         throw new Error(error)
     }
@@ -27,5 +43,7 @@ const postMenu = async (menu) => {
 module.exports = {
     getAllMenus,
     getMenuById,
-    postMenu
+    postMenus,
+    editMenus,
+    deleteMenu
 }
