@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
             allowNull: false,
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             defaultValue: "No description..."
         },
         image: {
