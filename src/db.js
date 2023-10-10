@@ -1,14 +1,12 @@
 const mongoose = require('mongoose')
 
-async function conection() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/', {
+  mongoose.connect('mongodb://127.0.0.1:27017/tornadodb', {
     useNewUrlParser: true,
     useUnifiedTopology: true
-  })
-}
+  }).then((db) => {console.log('Se ha conectado exitosamente a ' + db)})
+  .catch((err) => console.log(err))
 
 
-module.exports = conection
 
 // require('dotenv').config();
 // const { Sequelize } = require('sequelize');

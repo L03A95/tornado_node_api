@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { getAllMenus, getMenuById, postMenus, editMenus, deleteMenu } = require('../controllers/menuController.ts')
+const { getAllMenus, getMenuById, postMenus, editMenus, deleteMenu } = require('../controllers/menuController.js')
 const {APP_USER, APP_PASSWORD} = process.env
 
 const menuRouter = Router();

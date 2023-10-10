@@ -1,8 +1,9 @@
-const { Menu } = require('../db')
+const Menu = require('../models/Menu')
+const mongoose = require('mongoose')
 
 const getAllMenus = async () => {
     try {
-        return await Menu.findAll()
+        return await Menu.find()
     } catch (error) {
         throw new Error(error)
     }
@@ -10,15 +11,17 @@ const getAllMenus = async () => {
 
 const getMenuById = async (id) => {
     try {
-        return Menu.findByPk(id)
+        return Menu.find({_id: id})
     } catch (error) {
         throw new Error(error)
     }
 }
 
 const postMenus = async (menu) => {
-    try {      
-        return await Menu.create(menu)
+    try {     
+        const newMenu = new Menu({...menu})
+        console.log(newMenu)
+        await newMenu.save()
     } catch (error) {
         throw new Error(error)
     }

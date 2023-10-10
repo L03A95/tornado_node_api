@@ -1,13 +1,15 @@
 const mongoose = require('mongoose')
 
-const Menu = mongoose.model('Menu', new mongoose.Schema({
+const MenuSchema =  new mongoose.Schema({
     name: String,
     description: String,
     image: String,
     price: Number,
     active: Boolean,
     category: String
-}))
+})
+
+const Menu = mongoose.model('Menu', MenuSchema)
 
 module.exports = Menu
 // const { DataTypes, UUIDV4 } = require('sequelize');
