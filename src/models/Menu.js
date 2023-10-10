@@ -25,6 +25,10 @@ module.exports = (sequelize) => {
         active: {
             type: DataTypes.BOOLEAN,
             defaultValue: true
+        },
+        category: {
+            type: DataTypes.ENUM('entrada', 'parrilla', 'dulces', 'cafeteria', 'vinos'),
+            allowNull: false
         }
     },{timestamps: false})
 }
