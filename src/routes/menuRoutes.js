@@ -4,6 +4,10 @@ const {APP_USER, APP_PASSWORD} = process.env
 
 const menuRouter = Router();
 
+menuRouter.get('/prueba', (req,res) => {
+    res.status(200).json('Se logro')
+})
+ 
 menuRouter.post('/verify', async (req, res) => {
     try {
         if (req.body.username == APP_USER && req.body.password == APP_PASSWORD) {

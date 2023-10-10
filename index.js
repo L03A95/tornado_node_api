@@ -1,10 +1,18 @@
 const server = require('./src/app.js');
-const { conn } = require('./src/db.js');
+const conection = require('./src/db.js');
 const {PORT} = process.env
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => { //CAMBIAR A {alter: true} CUANDO TERMINE DE CREAR TODO EL BACKEND
-  server.listen(PORT, () => {
-    console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
+
+conection()
+  .then(() => {
+    console.log('Conexión exitosa a MongoDB');
+
+    server.listen(3001, () => {
+      console.log(`Servidor escuchando en el puerto ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Error en la conexión a MongoDB:', err);
   });
-});
+ 
