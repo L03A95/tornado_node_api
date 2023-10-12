@@ -1,5 +1,4 @@
 const Menu = require('../models/Menu')
-const mongoose = require('mongoose')
 
 const getAllMenus = async () => {
     try {
@@ -20,7 +19,6 @@ const getMenuById = async (id) => {
 const postMenus = async (menu) => {
     try {     
         const newMenu = new Menu({...menu})
-        console.log(newMenu)
         await newMenu.save()
     } catch (error) {
         throw new Error(error)
