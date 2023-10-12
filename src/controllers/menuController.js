@@ -27,7 +27,9 @@ const postMenus = async (menu) => {
 
 const editMenus = async (newMenu, id) => {
     try {
-        return await Menu.update(newMenu, {where:{id: id}})
+        return await Menu.findOneAndUpdate({ _id: id}, {
+            $set: newMenu
+        })
     } catch (error) {
         throw new Error(error)
     }
@@ -35,7 +37,7 @@ const editMenus = async (newMenu, id) => {
 
 const deleteMenu = async (id) => {
     try {
-        return await Menu.destroy({where: {id: id}})
+        return await Menu.deleteOne({_id: id})
     } catch (error) {
         throw new Error(error)
     }
