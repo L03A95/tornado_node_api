@@ -14,27 +14,32 @@ cloudinary.config({
 
 const menuRouter = Router();
 
-const upload = multer({ dest: 'uploads/' });
+// const upload = multer({ dest: 'uploads/' });
 
-menuRouter.post('/upload', upload.single('image'), async (req,res) => {
+menuRouter.post('/upload', async (req, res) => {
     try {
-        if(!req.file) {
-            res.status(404).json({error: "No se recibo ningun archivo"})
+      // Accede al archivo de la imagen directamente desde req.files
+      if (!req.files || !req.files.image) {
+        return res.status(404).json({ error: 'No se recibió ningún archivo' });
+      }
+  
+      const image = req.files.image;
+  
+      // Cargar el archivo en Cloudinary
+      cloudinary.v2.uploader.upload(image.tempFilePath, { public_id: "menu" }, function (error, result) {
+        if (error) {
+          return res.status(400).json({ error: 'Error al cargar la imagen en Cloudinary' });
         }
-        cloudinary.v2.uploader.upload(req.file.path,
-        { public_id: "menu" }, 
-        function(error, result) {
-            if (error) {
-                return res.status(400).json(error.message)
-            }
-
-            const imageUrl = result.secure_url;
-            res.status(200).json(imageUrl);
-         });
+  
+        const imageUrl = result.secure_url;
+  
+        // Responder con la URL de la imagen en Cloudinary
+        res.status(200).json(imageUrl);
+      });
     } catch (error) {
-        res.status(400).json(error.message)
+      res.status(400).json(error.message);
     }
-})
+  });
  
 menuRouter.post('/verify', async (req, res) => {
     try {
