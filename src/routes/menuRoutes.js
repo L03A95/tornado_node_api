@@ -19,9 +19,10 @@ const menuRouter = Router();
 menuRouter.post('/upload', async (req, res) => {
     try {
       // Accede al archivo de la imagen directamente desde req.files
-    //   if (!req.files || !req.files.image) {
-    //     return res.status(404).json({ error: 'No se recibió ningún archivo' });
-    //   }
+      if (!req.files || !req.files.image) {
+        console.log(req.files)
+        return res.status(404).json({ error: 'No se recibió ningún archivo' });
+      }
   
       const image = req.files.image;
   
