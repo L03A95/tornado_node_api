@@ -2,6 +2,13 @@ const { Router } = require('express');
 const { getAllMenus, getMenuById, postMenus, editMenus, deleteMenu } = require('../controllers/menuController.js')
 const {APP_USER, APP_PASSWORD} = process.env
 const multer = require('multer');
+import {v2 as cloudinary} from 'cloudinary';
+          
+cloudinary.config({ 
+  cloud_name: 'dlaqpndlk', 
+  api_key: '945541274585366', 
+  api_secret: 'ffMXS9C9-76dCwmWnEFQnc-aMZQ' 
+});
 
 const menuRouter = Router();
 
@@ -12,7 +19,16 @@ menuRouter.post('/upload', upload.single('image'), async (req,res) => {
         if(!req.file) {
             res.status(404).json({error: "No se recibo ningun archivo"})
         }
-        res.status(200).json('Se logro')
+        cloudinary.v2.uploader.upload(req.file.path,
+        { public_id: "menu" }, 
+        function(error, result) {
+            if (error) {
+                return res.status(400).json(error.message)
+            }
+
+            const imageUrl = result.secure_url;
+            res.status(200).json(imageUrl);
+         });
     } catch (error) {
         res.status(400).json(error.message)
     }
