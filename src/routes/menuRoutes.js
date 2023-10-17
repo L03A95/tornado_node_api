@@ -2,7 +2,9 @@ const { Router } = require('express');
 const { getAllMenus, getMenuById, postMenus, editMenus, deleteMenu } = require('../controllers/menuController.js')
 const {APP_USER, APP_PASSWORD} = process.env
 const multer = require('multer');
-import {v2 as cloudinary} from 'cloudinary';
+const {v2} = require('cloudinary')
+
+const cloudinary = v2
           
 cloudinary.config({ 
   cloud_name: 'dlaqpndlk', 
