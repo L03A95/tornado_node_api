@@ -1,11 +1,21 @@
 const { Router } = require('express');
 const { getAllMenus, getMenuById, postMenus, editMenus, deleteMenu } = require('../controllers/menuController.js')
 const {APP_USER, APP_PASSWORD} = process.env
+const multer = require('multer');
 
 const menuRouter = Router();
 
-menuRouter.get('/prueba', (req,res) => {
-    res.status(200).json('Se logro')
+const upload = multer({ dest: 'uploads/' });
+
+menuRouter.post('/upload', upload.single('image'), async (req,res) => {
+    try {
+        if(!req.file) {
+            res.status(404).json({error: "No se recibo ningun archivo"})
+        }
+        res.status(200).json('Se logro')
+    } catch (error) {
+        res.status(400).json(error.message)
+    }
 })
  
 menuRouter.post('/verify', async (req, res) => {
